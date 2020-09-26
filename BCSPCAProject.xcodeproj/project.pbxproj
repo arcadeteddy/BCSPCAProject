@@ -15,6 +15,7 @@
 		D8F0587F251FB3BB005CEB92 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8F0587D251FB3BB005CEB92 /* LaunchScreen.storyboard */; };
 		D8F0588A251FB3BB005CEB92 /* BCSPCAProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F05889251FB3BB005CEB92 /* BCSPCAProjectTests.swift */; };
 		D8F05895251FB3BB005CEB92 /* BCSPCAProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F05894251FB3BB005CEB92 /* BCSPCAProjectUITests.swift */; };
+		D8F058A7251FC22E005CEB92 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F058A6251FC22E005CEB92 /* HomeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		D8F05890251FB3BB005CEB92 /* BCSPCAProjectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BCSPCAProjectUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8F05894251FB3BB005CEB92 /* BCSPCAProjectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCSPCAProjectUITests.swift; sourceTree = "<group>"; };
 		D8F05896251FB3BB005CEB92 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D8F058A6251FC22E005CEB92 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				D8F0587D251FB3BB005CEB92 /* LaunchScreen.storyboard */,
 				D8F05880251FB3BB005CEB92 /* Info.plist */,
 				D8F0587A251FB3BB005CEB92 /* Preview Content */,
+				D8F058A6251FC22E005CEB92 /* HomeView.swift */,
 			);
 			path = BCSPCAProject;
 			sourceTree = "<group>";
@@ -269,6 +272,7 @@
 			files = (
 				960F6836251FBB7B007822AD /* MainViewController.swift in Sources */,
 				D8F05873251FB3BA005CEB92 /* AppDelegate.swift in Sources */,
+				D8F058A7251FC22E005CEB92 /* HomeView.swift in Sources */,
 				D8F05875251FB3BA005CEB92 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
