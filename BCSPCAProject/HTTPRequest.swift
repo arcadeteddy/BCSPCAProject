@@ -83,7 +83,9 @@ class FetchPostings: ObservableObject {
                 let jsonDecoder = JSONDecoder()
                 do {
                     let parsedJSON = try jsonDecoder.decode(Postings.self, from: data)
-                    self.postings = parsedJSON
+                    DispatchQueue.main.async {
+                        self.postings = parsedJSON
+                    }
                 } catch {
                     print(error)
                 }
@@ -105,7 +107,9 @@ class FetchOwner: ObservableObject {
                 let jsonDecoder = JSONDecoder()
                 do {
                     let parsedJSON = try jsonDecoder.decode(Owner.self, from: data)
-                    self.owner = parsedJSON
+                    DispatchQueue.main.async {
+                        self.owner = parsedJSON
+                    }
                 } catch {
                     print(error)
                 }
@@ -126,7 +130,9 @@ class FetchOwnerPets: ObservableObject {
                 let jsonDecoder = JSONDecoder()
                 do {
                     let parsedJSON = try jsonDecoder.decode(Pets.self, from: data)
-                    self.pet = parsedJSON
+                    DispatchQueue.main.async {
+                        self.pet = parsedJSON
+                    }
                 } catch {
                     print(error)
                 }

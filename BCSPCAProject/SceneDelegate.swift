@@ -22,7 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Create the SwiftUI view that provides the window contents.
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = UIHostingController(rootView: Tabs())
+            window.rootViewController = UIHostingController(rootView: HomeView())
             self.window = window
             window.makeKeyAndVisible()
         }

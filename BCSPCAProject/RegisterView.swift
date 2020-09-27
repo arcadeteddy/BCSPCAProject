@@ -198,11 +198,21 @@ struct PetRegistrationView: View {
                 
             VStack() {
                 VStack(alignment: .center) {
-                    Text("test")
-                        .frame(width: 35, height: 35, alignment: .center)
-                        .overlay(Circle().size(width: 75, height: 75).background(Color("PhotoBackground")))
-                    Text("Add Photo")
-                }
+                    VStack() {
+                        Image("camera")
+                        .resizable()
+                        .renderingMode(.original)
+                            .scaledToFit()
+                            .foregroundColor(Color("Primary"))
+                        .frame(width: 24, height: 22)
+                    }
+                    .frame(width: 75, height: 75)
+                    .background(Color("PhotoBackground"))
+                    .mask(Circle())
+                    
+                    Text("Add Photo").font(.system(size: 12, weight: .regular, design: .rounded)).foregroundColor(Color("Primary"))
+
+                }.padding(.vertical, 20)
                 VStack(alignment: .leading) {
                     Text("Name").font(.system(size: 12, weight: .regular, design: .rounded))
                     TextField("Sesame", text: $pet_name )
