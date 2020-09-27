@@ -21,7 +21,7 @@ Creating an open source application that could really assist in lost/found anima
 
 ## Contribution:
 
-We would love you for the contribution to Paws & Found, check the LICENSE file for more info.
+We would love you for the contribution to Paws & Found, please get into contact with us.
 
 ### References:
 https://cahi-icsa.ca/press-releases/latest-canadian-pet-population-figures-released 
