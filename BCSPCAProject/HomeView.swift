@@ -12,9 +12,13 @@ struct HomeView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 15) {
-                Image("logo").resizable()
-                    .padding(.bottom, 50)
-                    .frame(width: 280.0, height: 110)
+                Image("Logo2").resizable()
+                    .frame(width: 200.0, height: 220.0)
+                    .padding(.top, -75)
+                
+                Text("Paws & Found")
+                    .font(.system(size: 35, weight: .bold, design: .rounded))
+                .padding(.bottom, 50)
 
                 NavigationLink(destination: LoginView()) {
                     Text("Login")

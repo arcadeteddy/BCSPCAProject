@@ -24,6 +24,7 @@
 		D8F4A93A252097D40046E740 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F4A939252097D40046E740 /* MapView.swift */; };
 		D8F4A93B252097D40046E740 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F4A939252097D40046E740 /* MapView.swift */; };
 		D8F4A93C252097D40046E740 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F4A939252097D40046E740 /* MapView.swift */; };
+		D8F4A93E252126030046E740 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F4A93D252126030046E740 /* logo.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		D8F058A8251FDDD3005CEB92 /* Tabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.swift; sourceTree = "<group>"; };
 		D8F4A935252097B40046E740 /* MapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		D8F4A939252097D40046E740 /* MapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		D8F4A93D252126030046E740 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo.png; path = ../../../Desktop/logo.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +122,7 @@
 				D8F05874251FB3BA005CEB92 /* SceneDelegate.swift */,
 				960F6835251FBB7B007822AD /* MainViewController.swift */,
 				D8F05878251FB3BB005CEB92 /* Assets.xcassets */,
+				D8F4A93D252126030046E740 /* logo.png */,
 				D8F0587D251FB3BB005CEB92 /* LaunchScreen.storyboard */,
 				D8F4A939252097D40046E740 /* MapView.swift */,
 				D8F05880251FB3BB005CEB92 /* Info.plist */,
@@ -263,6 +266,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8F4A93E252126030046E740 /* logo.png in Resources */,
 				D8F0587F251FB3BB005CEB92 /* LaunchScreen.storyboard in Resources */,
 				D8F0587C251FB3BB005CEB92 /* Preview Assets.xcassets in Resources */,
 				D8F05879251FB3BB005CEB92 /* Assets.xcassets in Resources */,

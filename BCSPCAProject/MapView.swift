@@ -28,8 +28,24 @@ struct MapView: UIViewRepresentable {
   func updateUIView(_ uiView: MKMapView, context: Context) {
       let coordinate = CLLocationCoordinate2D(
           latitude: 49.2827, longitude: -123.1207)
+    let coordinate2 = CLLocationCoordinate2D(
+    latitude: 49.283, longitude: -123.1208)
+    let coordinate3 = CLLocationCoordinate2D(
+    latitude: 49.2828, longitude: -123.12072)
       let span = MKCoordinateSpan(latitudeDelta: 1.0, longitudeDelta: 1.0)
       let region = MKCoordinateRegion(center: coordinate, span: span)
       uiView.setRegion(region, animated: true)
+    
+//    let annotation = MKPointAnnotation()
+//    annotation.coordinate = coordinate
+//    uiView.addAnnotation(annotation)
+    
+//    let annotation2 = MKPointAnnotation()
+//    annotation2.coordinate = annotation2
+//    uiView.addAnnotation(annotation2)
+//
+    let annotation3 = MKPointAnnotation()
+    annotation3.coordinate = coordinate3
+    uiView.addAnnotation(annotation3)
   }
 }

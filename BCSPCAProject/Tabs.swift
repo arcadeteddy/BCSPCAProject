@@ -126,9 +126,13 @@ struct ProfileView: View {
 }
 
 struct MainView: View {
+    @State var dogs:Int = 0
+    @State var cats:Int = 0
+    
     @State var location:String = "Vancouver"
 
     @ObservedObject var fetch = FetchPostings()
+
     
     var body: some View {
         NavigationView{
@@ -145,6 +149,15 @@ struct MainView: View {
                         .padding(.bottom, 20)
                         .frame(height: 300)
                     
+//                    ForEach<Range<Int>, <#ID: Hashable#>, NavigationLink<some View, LostDogView>>(0 ..< fetch.postings.posts.count) { value in
+//                        if (self.fetch.postings.posts[value].type === "Dog") {
+//                            dogs = dogs + 1
+//                        }
+//                        if (self.fetch.postings.posts[value].type === "Cat") {
+//                            cats = cats + 1
+//                        }
+//                    }
+//
                     HStack(spacing: 25.0) {
                         VStack {
                             Image("dog-1")
@@ -152,8 +165,8 @@ struct MainView: View {
                                 .frame(width: 60, height: 60)
                                 .cornerRadius(4)
                                 .padding(0)
-                            Text("3")
-                                .font(.system(size: 15))
+                            Text(String(dogs))
+                                .font(.system(size: 15, weight: .bold))
                             Text("Dogs")
                                 .font(.system(size: 15))
                         }
@@ -163,8 +176,8 @@ struct MainView: View {
                                 .frame(width: 60, height: 60)
                                 .cornerRadius(4)
                                 .padding(0)
-                            Text("2")
-                                .font(.system(size: 15))
+                            Text(String(cats))
+                                .font(.system(size: 15, weight: .bold))
                             Text("Cats")
                                 .font(.system(size: 15))
                         }
@@ -175,7 +188,7 @@ struct MainView: View {
                                 .cornerRadius(4)
                                 .padding(0)
                             Text("0")
-                                .font(.system(size: 15))
+                                .font(.system(size: 15, weight: .bold))
                             Text("Hamsters")
                                 .font(.system(size: 15))
                         }
@@ -186,7 +199,7 @@ struct MainView: View {
                                 .cornerRadius(4)
                                 .padding(0)
                             Text("0")
-                                .font(.system(size: 15))
+                                .font(.system(size: 15, weight: .bold))
                             Text("Birds")
                                 .font(.system(size: 15))
                         }
