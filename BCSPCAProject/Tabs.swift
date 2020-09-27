@@ -144,10 +144,11 @@ struct ProfileView: View {
                     
                     NavigationLink(destination: DogView()) {
                         DogItem().padding(.top)
-                    }
+                    }.accentColor(Color.clear)
+                    
                 }
-                Spacer()
             }
+
         }
     }
 }
@@ -239,7 +240,14 @@ struct MainView: View {
                 .padding()
                 Spacer()
             }
-        }
+        }.onAppear(perform: fetchPostings )
+    }
+    
+    
+    private func fetchPostings() {
+//        HTTPRequest.shared.getAllPostings()
+//        HTTPRequest.shared.getOwner()
+        HTTPRequest.shared.getOwnerPet()
     }
 }
 
@@ -254,6 +262,7 @@ struct DogItem: View {
             HStack(alignment: .top, spacing: 0.0) {
                 Image("doggy")
                     .resizable()
+                    .renderingMode(.original)
                     .frame(width: 80, height: 80)
                     .cornerRadius(4)
                     .padding(0)
@@ -277,6 +286,7 @@ struct DogItem: View {
                     .foregroundColor(Color.green)
                     .padding(.all, 5.0)
                     .border(Color.green, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
+                Spacer()
                 
             }
             .padding(.all, 10.0)
@@ -313,6 +323,67 @@ struct AddPetView: View {
 
 struct DogView: View {
     var body: some View {
-        Text("Add Pet View")
+        ScrollView() {
+            VStack() {
+                VStack(alignment: .center) {
+                    Image("doggy")
+                        .resizable()
+                        .renderingMode(.original)
+                    .scaledToFill()
+                        .frame(maxWidth: .infinity)
+                        .frame(maxHeight: 200)
+//                        .frame(width: .infinity, height: 200)
+                        .cornerRadius(4)
+                        .padding(0)
+                }.padding(.top, 50)
+                VStack(alignment: .leading) {
+                    Text("Name").font(.system(size: 12, weight: .regular, design: .rounded))
+                    Text("Sesame").padding(.top, 8)
+                    Divider().background(Color("DarkGray")).padding(.top, 14)
+                }.padding(.bottom, 18)
+                VStack(alignment: .leading) {
+                    Text("Status").font(.system(size: 12, weight: .regular, design: .rounded))
+                    Text("Home").padding(.top, 8)
+                    Divider().background(Color("DarkGray")).padding(.top, 14)
+                }.padding(.bottom, 18)
+                VStack(alignment: .leading) {
+                    Text("Type").font(.system(size: 12, weight: .regular, design: .rounded))
+                    Text("Dog").padding(.top, 8)
+                    Divider().background(Color("DarkGray")).padding(.top, 14)
+                }.padding(.bottom, 18)
+                VStack(alignment: .leading) {
+                    Text("Breed").font(.system(size: 12, weight: .regular, design: .rounded))
+                    Text("Golden Retriever").padding(.top, 8)
+                    Divider().background(Color("DarkGray")).padding(.top, 14)
+                }.padding(.bottom, 18)
+                VStack(alignment: .leading) {
+                    Text("Size").font(.system(size: 12, weight: .regular, design: .rounded))
+                    Text("Medium").padding(.top, 8)
+                    Divider().background(Color("DarkGray")).padding(.top, 14)
+                }.padding(.bottom, 18)
+                VStack(alignment: .leading) {
+                    Text("Gender").font(.system(size: 12, weight: .regular, design: .rounded))
+                    Text("Male").padding(.top, 8)
+                    Divider().background(Color("DarkGray")).padding(.top, 14)
+                }.padding(.bottom, 18)
+                VStack(alignment: .leading) {
+                    Text("Primary Colour").font(.system(size: 12, weight: .regular, design: .rounded))
+                    Text("Test").padding(.top, 8)
+                    Divider().background(Color("DarkGray")).padding(.top, 14)
+                }.padding(.bottom, 18)
+                VStack(alignment: .leading) {
+                    Text("Birthday").font(.system(size: 12, weight: .regular, design: .rounded))
+                    Text("Sep/20/2020").padding(.top, 8)
+                    Divider().background(Color("DarkGray")).padding(.top, 14)
+                }.padding(.bottom, 18)
+//                Spacer()
+            }.padding(22)
+                .navigationBarTitle(Text("Pet Registration"), displayMode: .inline)
+                .navigationBarItems(trailing:
+                    NavigationLink(destination: EmergencyContactView()) {
+                        Text("Edit")
+                    })
+
+        }
     }
 }
