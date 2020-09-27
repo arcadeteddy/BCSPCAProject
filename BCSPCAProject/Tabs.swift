@@ -152,7 +152,7 @@ struct MainView: View {
                                 .frame(width: 60, height: 60)
                                 .cornerRadius(4)
                                 .padding(0)
-                            Text("0")
+                            Text("3")
                                 .font(.system(size: 15))
                             Text("Dogs")
                                 .font(.system(size: 15))
@@ -163,7 +163,7 @@ struct MainView: View {
                                 .frame(width: 60, height: 60)
                                 .cornerRadius(4)
                                 .padding(0)
-                            Text("0")
+                            Text("2")
                                 .font(.system(size: 15))
                             Text("Cats")
                                 .font(.system(size: 15))
@@ -192,11 +192,11 @@ struct MainView: View {
                         }
                     }
                     
-//                    ForEach(0 ..< fetch.postings.posts.count) { value in
-//                        NavigationLink(destination: DogView()) {
-//                            LostDogView(dog: self.fetch.postings.posts[value]).padding(.top)
-//                        }
-//                    }
+                    ForEach(0 ..< fetch.postings.posts.count) { value in
+                        NavigationLink(destination: LostDogView(dog: self.fetch.postings.posts[value])) {
+                            LostDogItems(dog: self.fetch.postings.posts[value]).padding(.top)
+                        }
+                    }
                 }
                 .padding()
                 Spacer()
@@ -480,15 +480,14 @@ struct DogView: View {
     }
 }
 
-
 struct LostDogView: View {
-    @Binding var dog: Posting
+    var dog: Posting
     
     var body: some View {
         ScrollView() {
             VStack() {
                 VStack(alignment: .center) {
-                    Image("doggy")
+                    Image(dog.type)
                         .resizable()
                         .renderingMode(.original)
                     .scaledToFill()
@@ -499,43 +498,28 @@ struct LostDogView: View {
                         .padding(0)
                 }.padding(.top, 50)
                 VStack(alignment: .leading) {
-                    Text("Name").font(.system(size: 12, weight: .regular, design: .rounded))
-                    Text("Sesame").padding(.top, 8)
+                    Text("Type").font(.system(size: 12, weight: .regular, design: .rounded))
+                    Text(dog.type).padding(.top, 8)
                     Divider().background(Color("DarkGray")).padding(.top, 14)
                 }.padding(.bottom, 18)
                 VStack(alignment: .leading) {
                     Text("Status").font(.system(size: 12, weight: .regular, design: .rounded))
-                    Text("Home").padding(.top, 8)
+                    Text(dog.status).padding(.top, 8)
                     Divider().background(Color("DarkGray")).padding(.top, 14)
                 }.padding(.bottom, 18)
                 VStack(alignment: .leading) {
                     Text("Type").font(.system(size: 12, weight: .regular, design: .rounded))
-                    Text("Dog").padding(.top, 8)
-                    Divider().background(Color("DarkGray")).padding(.top, 14)
-                }.padding(.bottom, 18)
-                VStack(alignment: .leading) {
-                    Text("Breed").font(.system(size: 12, weight: .regular, design: .rounded))
-                    Text("Golden Retriever").padding(.top, 8)
+                    Text(dog.type).padding(.top, 8)
                     Divider().background(Color("DarkGray")).padding(.top, 14)
                 }.padding(.bottom, 18)
                 VStack(alignment: .leading) {
                     Text("Size").font(.system(size: 12, weight: .regular, design: .rounded))
-                    Text("Medium").padding(.top, 8)
+                    Text(dog.size).padding(.top, 8)
                     Divider().background(Color("DarkGray")).padding(.top, 14)
                 }.padding(.bottom, 18)
                 VStack(alignment: .leading) {
-                    Text("Gender").font(.system(size: 12, weight: .regular, design: .rounded))
-                    Text("Male").padding(.top, 8)
-                    Divider().background(Color("DarkGray")).padding(.top, 14)
-                }.padding(.bottom, 18)
-                VStack(alignment: .leading) {
-                    Text("Primary Colour").font(.system(size: 12, weight: .regular, design: .rounded))
-                    Text("Test").padding(.top, 8)
-                    Divider().background(Color("DarkGray")).padding(.top, 14)
-                }.padding(.bottom, 18)
-                VStack(alignment: .leading) {
-                    Text("Birthday").font(.system(size: 12, weight: .regular, design: .rounded))
-                    Text("Sep/20/2020").padding(.top, 8)
+                    Text("Location").font(.system(size: 12, weight: .regular, design: .rounded))
+                    Text("Vancouver, BC").padding(.top, 8)
                     Divider().background(Color("DarkGray")).padding(.top, 14)
                 }.padding(.bottom, 18)
 //                Spacer()
@@ -546,13 +530,59 @@ struct LostDogView: View {
                         Text("Edit")
                     })
 
-//            var color: [String]
-//              var status: String
-//              var type: String
-//              var size: String
-//              var lat: Float
-//              var lng: Float
+        }
+    }
+}
+
+
+struct LostDogItems: View {
+    var dog: Posting
+    
+    var body: some View {
+        ZStack {
+            Color.white
+                .frame(width: 340, height: 100)
+                .cornerRadius(4)
+                .shadow(radius: /*@START_MENU_TOKEN@*/5/*@END_MENU_TOKEN@*/)
             
+            HStack(alignment: .top, spacing: 0.0) {
+                Image(dog._id)
+                    .resizable()
+                    .renderingMode(.original)
+                    .frame(width: 80, height: 80)
+                    .cornerRadius(4)
+                    .padding(0)
+                VStack(alignment: .leading) {
+                    Text(dog.type)
+                        .font(.system(size: 20))
+                        .foregroundColor(Color.black)
+                        .multilineTextAlignment(.leading)
+                    Text("3KM Away")
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                        .multilineTextAlignment(.leading)
+                    HStack {
+                        ForEach(0 ..< dog.color.count) { index in
+                             Circle()
+                                .fill(Color(hex: self.dog.color[index]))
+                               .frame(width: 20, height: 20)
+                            .border(Color.black, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
+                            .cornerRadius(10)
+                        }
+                    }
+                }
+                .padding(.trailing, 60.0)
+                .frame(maxWidth: .infinity)
+                Text(dog.status.capitalizingFirstLetter())
+                    .font(.system(size: 13))
+                    .foregroundColor(Color.red)
+                    .padding(.all, 5.0)
+                    .border(Color.red, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
+                Spacer()
+                
+            }
+            .padding(.all, 10.0)
+            .frame(width: 340, height: 100)
         }
     }
 }

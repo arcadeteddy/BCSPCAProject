@@ -183,6 +183,7 @@ struct Postings: Codable {
 
 
 struct Posting: Codable {
+    var _id: String
     var color: [String]
     var status: String
     var type: String
