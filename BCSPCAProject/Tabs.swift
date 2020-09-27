@@ -12,19 +12,19 @@ struct Tabs: View {
     var body: some View {
         TabView {
             ProfileView(rValue: 0.5, gValue: 0.5, bValue: 0.5)
-             .tabItem {
-                Image(systemName: "person.fill")
-                Text("Profile")
+                .tabItem {
+                    Image(systemName: "person.fill")
+                    Text("Profile")
             }
             MainView()
-             .tabItem {
-                Image(systemName: "house.fill")
-                Text("Home")
+                .tabItem {
+                    Image(systemName: "house.fill")
+                    Text("Home")
             }
             ReportView()
-              .tabItem {
-                 Image(systemName: "camera.fill")
-                 Text("Report")
+                .tabItem {
+                    Image(systemName: "camera.fill")
+                    Text("Report")
             }
         }
     }
@@ -62,7 +62,7 @@ struct ProfileImage: View {
                 .clipShape(Circle())
                 .overlay(Circle().stroke(Color.white, lineWidth: 4))
                 .shadow(radius: 5)
-                
+            
         }
     }
 }
@@ -82,7 +82,7 @@ struct ProfileView: View {
                     colorSlider(value: $bValue, textColor: .blue)
                     HStack {
                         VStack {
-                            RoundedRectangle(cornerRadius: 5)
+                            RoundedRectangle(cornerRadius: 4)
                                 .frame(width: 100)
                                 .foregroundColor(Color(red: rValue, green: gValue, blue: bValue, opacity: 1.0))
                         }
@@ -94,62 +94,101 @@ struct ProfileView: View {
                     }
                 }
             }
-
+                
             .navigationBarTitle(Text("Edit Profile"))
-                .navigationBarItems(
-                    trailing: Button (action: { self.isPresented = false } ) { Text("Done")
-                        .foregroundColor(.green)
-                    }
+            .navigationBarItems(
+                trailing: Button (action: { self.isPresented = false } ) { Text("Done")
+                    .foregroundColor(.green)
+                }
             )
         }
     }
     
-    let dogs = [Dog(name:"dog",breed:"Foobar"), Dog(name:"shit",breed:"poop")]
-
     var body: some View {
-       ScrollView {
-            HStack {
-                ProfileImage()
-                VStack {
-                    Text("Jason Kim")
-                        .font(.title)
-                    Text("Daddy: 3 Pets")
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
+        NavigationView{
+            ScrollView {
+                VStack(){
+                    HStack {
+                        ProfileImage().padding(.leading)
+                        
+                        VStack(alignment: .leading) {
+                            Text("Jason Kim")
+                                .font(.system(size: 20))
+                            Text("Pets: 3")
+                                .font(.subheadline)
+                                .foregroundColor(.gray)
+                                .padding(.bottom)
+                            HStack {
+                                NavigationLink(destination: EditProfileView()) {
+                                    Text("Edit Profile")
+                                        .font(.system(size: 13))
+                                        .foregroundColor(Color.white)
+                                        .frame(width: 100, height: 30)
+                                        .accessibility(label: Text("Edit Profile"))
+                                        .background(/*@START_MENU_TOKEN@*/Color.blue/*@END_MENU_TOKEN@*/)
+                                        .cornerRadius(4)
+                                }
+                                NavigationLink(destination: AddPetView()) {
+                                    Text("Add Pet")
+                                        .font(.system(size: 13))
+                                        .foregroundColor(Color.white)
+                                        .frame(width: 100, height: 30)
+                                        .accessibility(label: Text("Add Pet"))
+                                        .background(/*@START_MENU_TOKEN@*/Color.blue/*@END_MENU_TOKEN@*/)
+                                        .cornerRadius(4)
+                                }
+                            }
+                        }.padding(.horizontal)
+                    }
                     
-                    Button (action: { self.isPresented = true }, label: {
-                        HStack {
-                            Image(systemName: "slider.horizontal.3")
-                                .imageScale(.large)
-                                .foregroundColor(/*@START_MENU_TOKEN@*/.white/*@END_MENU_TOKEN@*/)
-                            Text("Edit Profile")
-                                .foregroundColor(Color.white)
-                                .accessibility(label: Text("Edit Profile"))
-                        }
-                        .padding()
-                        .background(/*@START_MENU_TOKEN@*/Color.blue/*@END_MENU_TOKEN@*/)
-                    })
-                }.padding()
-                
+                    NavigationLink(destination: DogView()) {
+                        DogItem().padding(.top)
+                    }
+                }
+                Spacer()
             }
-        
-            List(dogs) { dog in
-                TrailRow(dog: dog)
-            }
-        }.sheet(isPresented: $isPresented, content: {
-            self.SliderModalPresentation
-        })
+        }
     }
 }
 
-struct TrailRow: View {
-    var dog: Dog
-    
+struct DogItem: View {
     var body: some View {
-        VStack(alignment: .leading) {
-            Text(dog.name)
-            Text(dog.breed).font(.subheadline).foregroundColor(.gray)
-            Spacer()
+        ZStack {
+            Color.white
+                .frame(width: 340, height: 100)
+                .cornerRadius(4)
+                .shadow(radius: /*@START_MENU_TOKEN@*/5/*@END_MENU_TOKEN@*/)
+            
+            HStack(alignment: .top, spacing: 0.0) {
+                Image("doggy")
+                    .resizable()
+                    .frame(width: 80, height: 80)
+                    .cornerRadius(4)
+                    .padding(0)
+                VStack(alignment: .leading) {
+                    Text("Cubby")
+                        .font(.system(size: 20))
+                        .foregroundColor(Color.black)
+                        .multilineTextAlignment(.leading)
+                    Text("Square Head Dog")
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                        .multilineTextAlignment(.leading)
+                    Circle()
+                    .fill(Color.black)
+                    .frame(width: 20, height: 20)
+                }
+                .padding(.trailing, 60.0)
+                .frame(maxWidth: .infinity)
+                Text("Safe")
+                    .font(.system(size: 13))
+                    .foregroundColor(Color.green)
+                    .padding(.all, 5.0)
+                    .border(Color.green, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
+                
+            }
+            .padding(.all, 10.0)
+            .frame(width: 340, height: 100)
         }
     }
 }
@@ -171,4 +210,23 @@ struct Dog: Codable, Identifiable {
     var id = UUID()
     var name: String
     var breed: String
+}
+
+
+struct EditProfileView: View {
+    var body: some View {
+        Text("Edit Profile View")
+    }
+}
+
+struct AddPetView: View {
+    var body: some View {
+        Text("Add Pet View")
+    }
+}
+
+struct DogView: View {
+    var body: some View {
+        Text("Add Pet View")
+    }
 }
