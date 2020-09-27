@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		960F6836251FBB7B007822AD /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960F6835251FBB7B007822AD /* MainViewController.swift */; };
+		96EE440525202A220040F4F8 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EE440425202A220040F4F8 /* RegisterView.swift */; };
 		D8F05873251FB3BA005CEB92 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F05872251FB3BA005CEB92 /* AppDelegate.swift */; };
 		D8F05875251FB3BA005CEB92 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F05874251FB3BA005CEB92 /* SceneDelegate.swift */; };
 		D8F05879251FB3BB005CEB92 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8F05878251FB3BB005CEB92 /* Assets.xcassets */; };
@@ -38,6 +39,7 @@
 
 /* Begin PBXFileReference section */
 		960F6835251FBB7B007822AD /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		96EE440425202A220040F4F8 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		D8F0586F251FB3BA005CEB92 /* BCSPCAProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BCSPCAProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8F05872251FB3BA005CEB92 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D8F05874251FB3BA005CEB92 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				D8F0587A251FB3BB005CEB92 /* Preview Content */,
 				D8F058A6251FC22E005CEB92 /* HomeView.swift */,
 				D8F058A8251FDDD3005CEB92 /* Tabs.swift */,
+				96EE440425202A220040F4F8 /* RegisterView.swift */,
 			);
 			path = BCSPCAProject;
 			sourceTree = "<group>";
@@ -276,6 +279,7 @@
 				960F6836251FBB7B007822AD /* MainViewController.swift in Sources */,
 				D8F05873251FB3BA005CEB92 /* AppDelegate.swift in Sources */,
 				D8F058A7251FC22E005CEB92 /* HomeView.swift in Sources */,
+				96EE440525202A220040F4F8 /* RegisterView.swift in Sources */,
 				D8F058A9251FDDD3005CEB92 /* Tabs.swift in Sources */,
 				D8F05875251FB3BA005CEB92 /* SceneDelegate.swift in Sources */,
 			);

@@ -16,28 +16,27 @@ struct HomeView: View {
                     .padding(.bottom, 50)
                     .frame(width: 280.0, height: 110)
 
-                NavigationLink(destination: LoginView(choice: "Login")) {
-                    Text("Login / Signup")
-                    .font(.system(size: 16, weight: .semibold, design: .rounded))
-                        .foregroundColor(Color.white)
-                        .frame(width: 260, height: 40)
-                        .background(Color.blue)
-
-                    .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                    .shadow(color: Color(#colorLiteral(red: 0.7608050108, green: 0.8164883852, blue: 0.9259157777, alpha: 1)), radius: 20, x: 20, y: 20)
-                    .shadow(color: Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)), radius: 20, x: -20, y: -20)
+                NavigationLink(destination: LoginView()) {
+                    Text("Login")
+                    .font(.system(size: 16, weight: .regular, design: .rounded))
+                    .foregroundColor(Color.white)
+                    .frame(width: 260, height: 40)
+                    .background(Color.blue)
+                    .cornerRadius(4)
                 }
 
                 NavigationLink(destination: ReportView()) {
                     Text("Report Lost Pet")
-                    .font(.system(size: 16, weight: .semibold, design: .rounded))
-                        .foregroundColor(Color.white)
-                        .frame(width: 260, height: 40)
-                        .background(Color.blue)
-
-                    .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                    .shadow(color: Color(#colorLiteral(red: 0.7608050108, green: 0.8164883852, blue: 0.9259157777, alpha: 1)), radius: 20, x: 20, y: 20)
-                    .shadow(color: Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)), radius: 20, x: -20, y: -20)
+                    .font(.system(size: 16, weight: .regular, design: .rounded))
+                    .foregroundColor(Color.blue)
+                    .frame(width: 260, height: 40)
+                    .overlay(RoundedRectangle(cornerRadius: 4)
+                    .stroke(Color.blue, lineWidth: 1))
+                }
+                
+                NavigationLink(destination: RegisterView()) {
+                    Text("Don't have an account? Register Now")
+                        .font(.system(size: 12, weight: .regular, design: .rounded))
                 }
             }
         }
@@ -46,8 +45,6 @@ struct HomeView: View {
 }
 
 struct LoginView: View {
-    var choice: String
-    
     @State private var email = ""
     @State private var password = ""
 
