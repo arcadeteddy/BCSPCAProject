@@ -22,11 +22,11 @@ class HTTPRequest {
         req.httpMethod = "GET"
         URLSession.shared.dataTask(with: req) { data, response, error in
             if let data = data {
-                print(String(data: data, encoding: .utf8))
                 let jsonDecoder = JSONDecoder()
                 do {
                     let parsedJSON = try jsonDecoder.decode(Postings.self, from: data)
-                    print(parsedJSON.posts[0])
+                    print(parsedJSON)
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "get_all_postings"), object: nil, userInfo: ["json": parsedJSON])
                 } catch {
                     print(error)
                 }
@@ -39,11 +39,11 @@ class HTTPRequest {
         req.httpMethod = "GET"
         URLSession.shared.dataTask(with: req) { data, response, error in
             if let data = data {
-                print(String(data: data, encoding: .utf8))
                 let jsonDecoder = JSONDecoder()
                 do {
                     let parsedJSON = try jsonDecoder.decode(Owner.self, from: data)
                     print(parsedJSON)
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "get_owner"), object: nil, userInfo: ["json": parsedJSON])
                 } catch {
                     print(error)
                 }
@@ -56,11 +56,11 @@ class HTTPRequest {
         req.httpMethod = "GET"
         URLSession.shared.dataTask(with: req) { data, response, error in
             if let data = data {
-                print(String(data: data, encoding: .utf8))
                 let jsonDecoder = JSONDecoder()
                 do {
                     let parsedJSON = try jsonDecoder.decode(Pets.self, from: data)
                     print(parsedJSON)
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "get_owner_pet"), object: nil, userInfo: ["json": parsedJSON])
                 } catch {
                     print(error)
                 }

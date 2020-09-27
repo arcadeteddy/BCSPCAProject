@@ -245,9 +245,34 @@ struct MainView: View {
     
     
     private func fetchPostings() {
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "get_owner"), object: nil, queue: nil, using: self.onGetOwner(notification:))
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "get_all_postings"), object: nil, queue: nil, using: self.onGetAllPostings(notification:))
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "get_owner_pet"), object: nil, queue: nil, using: self.onGetOwnerPet  (notification:))
 //        HTTPRequest.shared.getAllPostings()
-//        HTTPRequest.shared.getOwner()
-        HTTPRequest.shared.getOwnerPet()
+        HTTPRequest.shared.getOwner()
+//        HTTPRequest.shared.getOwnerPet()
+    }
+    
+    
+    func onGetOwner(notification:Notification) {
+        if let userinfo = notification.userInfo, let data = userinfo["json"] as? Owner {
+            print(data.data.firstName)
+        }
+        
+    }
+    
+    func onGetAllPostings(notification:Notification) {
+        if let userinfo = notification.userInfo, let data = userinfo["json"] as? Postings {
+            print(data)
+        }
+        
+    }
+    
+    func onGetOwnerPet(notification:Notification) {
+        if let userinfo = notification.userInfo, let data = userinfo["json"] as? Pets {
+            print(data)
+        }
+        
     }
 }
 
