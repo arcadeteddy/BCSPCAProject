@@ -20,6 +20,10 @@
 		D8F05895251FB3BB005CEB92 /* BCSPCAProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F05894251FB3BB005CEB92 /* BCSPCAProjectUITests.swift */; };
 		D8F058A7251FC22E005CEB92 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F058A6251FC22E005CEB92 /* HomeView.swift */; };
 		D8F058A9251FDDD3005CEB92 /* Tabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F058A8251FDDD3005CEB92 /* Tabs.swift */; };
+		D8F4A936252097B40046E740 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F4A935252097B40046E740 /* MapView.swift */; };
+		D8F4A93A252097D40046E740 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F4A939252097D40046E740 /* MapView.swift */; };
+		D8F4A93B252097D40046E740 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F4A939252097D40046E740 /* MapView.swift */; };
+		D8F4A93C252097D40046E740 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F4A939252097D40046E740 /* MapView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +63,8 @@
 		D8F05896251FB3BB005CEB92 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D8F058A6251FC22E005CEB92 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		D8F058A8251FDDD3005CEB92 /* Tabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.swift; sourceTree = "<group>"; };
+		D8F4A935252097B40046E740 /* MapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		D8F4A939252097D40046E740 /* MapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,11 +115,13 @@
 		D8F05871251FB3BA005CEB92 /* BCSPCAProject */ = {
 			isa = PBXGroup;
 			children = (
+				D8F4A935252097B40046E740 /* MapView.swift */,
 				D8F05872251FB3BA005CEB92 /* AppDelegate.swift */,
 				D8F05874251FB3BA005CEB92 /* SceneDelegate.swift */,
 				960F6835251FBB7B007822AD /* MainViewController.swift */,
 				D8F05878251FB3BB005CEB92 /* Assets.xcassets */,
 				D8F0587D251FB3BB005CEB92 /* LaunchScreen.storyboard */,
+				D8F4A939252097D40046E740 /* MapView.swift */,
 				D8F05880251FB3BB005CEB92 /* Info.plist */,
 				D8F0587A251FB3BB005CEB92 /* Preview Content */,
 				D8F058A6251FC22E005CEB92 /* HomeView.swift */,
@@ -283,12 +291,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				960F6836251FBB7B007822AD /* MainViewController.swift in Sources */,
+				D8F4A936252097B40046E740 /* MapView.swift in Sources */,
 				D8F05873251FB3BA005CEB92 /* AppDelegate.swift in Sources */,
 				D8F058A7251FC22E005CEB92 /* HomeView.swift in Sources */,
 				963869AC25210051001745CD /* PostingView.swift in Sources */,
 				96EE440525202A220040F4F8 /* RegisterView.swift in Sources */,
 				96EE440725207CC10040F4F8 /* HTTPRequest.swift in Sources */,
 				D8F058A9251FDDD3005CEB92 /* Tabs.swift in Sources */,
+				D8F4A93A252097D40046E740 /* MapView.swift in Sources */,
 				D8F05875251FB3BA005CEB92 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -298,6 +308,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8F0588A251FB3BB005CEB92 /* BCSPCAProjectTests.swift in Sources */,
+				D8F4A93B252097D40046E740 /* MapView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,6 +317,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8F05895251FB3BB005CEB92 /* BCSPCAProjectUITests.swift in Sources */,
+				D8F4A93C252097D40046E740 /* MapView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

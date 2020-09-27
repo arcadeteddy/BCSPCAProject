@@ -12,15 +12,15 @@ import MapKit
 struct Tabs: View {
     var body: some View {
         TabView {
+            ProfileView()
+                .tabItem {
+                    Image(systemName: "person.fill")
+                    Text("Profile")
+            }
             MainView()
                 .tabItem {
                     Image(systemName: "house.fill")
                     Text("Search")
-            }
-            ProfileView(rValue: 0.5, gValue: 0.5, bValue: 0.5)
-                .tabItem {
-                    Image(systemName: "person.fill")
-                    Text("Profile")
             }
             ReportView()
                 .tabItem {
@@ -70,53 +70,19 @@ struct ProfileImage: View {
 }
 
 struct ProfileView: View {
-    @State var rValue: Double
-    @State var gValue: Double
-    @State var bValue: Double
-    @State var isPresented = false
-    
-    var SliderModalPresentation: some View {
-        NavigationView {
-            Form {
-                Section(header: Text("Header Background Color")) {
-                    colorSlider(value: $rValue, textColor: .red)
-                    colorSlider(value: $gValue, textColor: .green)
-                    colorSlider(value: $bValue, textColor: .blue)
-                    HStack {
-                        VStack {
-                            RoundedRectangle(cornerRadius: 4)
-                                .frame(width: 100)
-                                .foregroundColor(Color(red: rValue, green: gValue, blue: bValue, opacity: 1.0))
-                        }
-                        VStack {
-                            Text("R: \(Int(rValue * 255.0))")
-                            Text("G: \(Int(gValue * 255.0))")
-                            Text("B: \(Int(bValue * 255.0))")
-                        }
-                    }
-                }
-            }
-                
-            .navigationBarTitle(Text("Edit Profile"))
-            .navigationBarItems(
-                trailing: Button (action: { self.isPresented = false } ) { Text("Done")
-                    .foregroundColor(.green)
-                }
-            )
-        }
-    }
+    @ObservedObject var fetch = FetchOwnerPets()
     
     var body: some View {
         NavigationView{
             ScrollView {
-                VStack(){
+                VStack {
                     HStack {
                         ProfileImage().padding(.leading)
                         
                         VStack(alignment: .leading) {
                             Text("Jason Kim")
                                 .font(.system(size: 20))
-                            Text("Pets: 3")
+                            Text("Pets: " + String(fetch.pet.data.count))
                                 .font(.subheadline)
                                 .foregroundColor(.gray)
                                 .padding(.bottom)
@@ -143,10 +109,11 @@ struct ProfileView: View {
                         }.padding(.horizontal)
                     }
                     
-                    NavigationLink(destination: DogView()) {
-                        DogItem().padding(.top)
-                    }.accentColor(Color.clear)
-                    
+                    ForEach(0 ..< fetch.pet.data.count) { value in
+                        NavigationLink(destination: DogView(dog: self.fetch.pet.data[value])) {
+                            DogItem(dog: self.fetch.pet.data[value]).padding(.top)
+                        }.accentColor(Color.clear)
+                    }
                 }
             }
 
@@ -154,24 +121,10 @@ struct ProfileView: View {
     }
 }
 
-struct MapView: UIViewRepresentable {
-    func makeUIView(context: Context) -> MKMapView {
-        MKMapView(frame: .zero)
-    }
-
-    func updateUIView(_ uiView: MKMapView, context: Context) {
-        let coordinate = CLLocationCoordinate2D(
-            latitude: 34.011286, longitude: -116.166868)
-        let span = MKCoordinateSpan(latitudeDelta: 2.0, longitudeDelta: 2.0)
-        let region = MKCoordinateRegion(center: coordinate, span: span)
-        uiView.setRegion(region, animated: true)
-    }
-}
-
 struct MainView: View {
-    @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+    @State var location:String = "Vancouver"
+
     @ObservedObject var fetch = FetchPostings()
-    @State var location:String = ""
     
     var body: some View {
         NavigationView{
@@ -180,8 +133,8 @@ struct MainView: View {
                     Print(fetch.postings.posts)
                     VStack(alignment: .leading) {
                         Text("Location").font(.system(size: 12, weight: .regular, design: .rounded))
-                        TextField("Location", text: $location )
-                    }.padding(.bottom, 18)
+                        TextField("Location", text: $location)
+                    }
                     
                     MapView()
                         .padding(.horizontal, -20.0)
@@ -235,9 +188,11 @@ struct MainView: View {
                         }
                     }
                     
-                    NavigationLink(destination: DogView()) {
-                        DogItem().padding(.top)
-                    }
+//                    ForEach(0 ..< fetch.postings.posts.count) { value in
+//                        NavigationLink(destination: DogView()) {
+//                            LostDogView(dog: self.fetch.postings.posts[value]).padding(.top)
+//                        }
+//                    }
                 }
                 .padding()
                 Spacer()
@@ -276,11 +231,12 @@ struct MainView: View {
         if let userinfo = notification.userInfo, let data = userinfo["json"] as? Pets {
             print(data)
         }
-        
     }
 }
 
 struct DogItem: View {
+    var dog: Pet
+    
     var body: some View {
         ZStack {
             Color.white
@@ -289,28 +245,34 @@ struct DogItem: View {
                 .shadow(radius: /*@START_MENU_TOKEN@*/5/*@END_MENU_TOKEN@*/)
             
             HStack(alignment: .top, spacing: 0.0) {
-                Image("doggy")
+                Image(dog.name)
                     .resizable()
                     .renderingMode(.original)
                     .frame(width: 80, height: 80)
                     .cornerRadius(4)
                     .padding(0)
                 VStack(alignment: .leading) {
-                    Text("Cubby")
+                    Text(dog.name)
                         .font(.system(size: 20))
                         .foregroundColor(Color.black)
                         .multilineTextAlignment(.leading)
-                    Text("Square Head Dog")
+                    Text(dog.breed)
                         .font(.subheadline)
                         .foregroundColor(.gray)
                         .multilineTextAlignment(.leading)
-                    Circle()
-                    .fill(Color.black)
-                    .frame(width: 20, height: 20)
+                    HStack {
+                        ForEach(0 ..< dog.color.count) { index in
+                             Circle()
+                                .fill(Color(hex: self.dog.color[index]))
+                               .frame(width: 20, height: 20)
+                            .border(Color.black, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
+                            .cornerRadius(10)
+                        }
+                    }
                 }
                 .padding(.trailing, 60.0)
                 .frame(maxWidth: .infinity)
-                Text("Safe")
+                Text(dog.status.capitalizingFirstLetter())
                     .font(.system(size: 13))
                     .foregroundColor(Color.green)
                     .padding(.all, 5.0)
@@ -324,12 +286,107 @@ struct DogItem: View {
     }
 }
 
+extension Color {
+    init(hex string: String) {
+        var string: String = string.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        if string.hasPrefix("#") {
+            _ = string.removeFirst()
+        }
+
+        // Double the last value if incomplete hex
+        if !string.count.isMultiple(of: 2), let last = string.last {
+            string.append(last)
+        }
+
+        // Fix invalid values
+        if string.count > 8 {
+            string = String(string.prefix(8))
+        }
+
+        // Scanner creation
+        let scanner = Scanner(string: string)
+
+        var color: UInt64 = 0
+        scanner.scanHexInt64(&color)
+
+        if string.count == 2 {
+            let mask = 0xFF
+
+            let g = Int(color) & mask
+
+            let gray = Double(g) / 255.0
+
+            self.init(.sRGB, red: gray, green: gray, blue: gray, opacity: 1)
+
+        } else if string.count == 4 {
+            let mask = 0x00FF
+
+            let g = Int(color >> 8) & mask
+            let a = Int(color) & mask
+
+            let gray = Double(g) / 255.0
+            let alpha = Double(a) / 255.0
+
+            self.init(.sRGB, red: gray, green: gray, blue: gray, opacity: alpha)
+
+        } else if string.count == 6 {
+            let mask = 0x0000FF
+            let r = Int(color >> 16) & mask
+            let g = Int(color >> 8) & mask
+            let b = Int(color) & mask
+
+            let red = Double(r) / 255.0
+            let green = Double(g) / 255.0
+            let blue = Double(b) / 255.0
+
+            self.init(.sRGB, red: red, green: green, blue: blue, opacity: 1)
+
+        } else if string.count == 8 {
+            let mask = 0x000000FF
+            let r = Int(color >> 24) & mask
+            let g = Int(color >> 16) & mask
+            let b = Int(color >> 8) & mask
+            let a = Int(color) & mask
+
+            let red = Double(r) / 255.0
+            let green = Double(g) / 255.0
+            let blue = Double(b) / 255.0
+            let alpha = Double(a) / 255.0
+
+            self.init(.sRGB, red: red, green: green, blue: blue, opacity: alpha)
+
+        } else {
+            self.init(.sRGB, red: 1, green: 1, blue: 1, opacity: 1)
+        }
+    }
+}
+
+extension String {
+    func capitalizingFirstLetter() -> String {
+        return prefix(1).capitalized + dropFirst()
+    }
+
+    mutating func capitalizeFirstLetter() {
+        self = self.capitalizingFirstLetter()
+    }
+}
+
 struct Tabs_Previews: PreviewProvider {
     static var previews: some View {
         Tabs()
     }
 }
 
+struct LostDogs: Identifiable {
+  var id = UUID()
+  let breed: String
+  let latitude: Double
+  let longitude: Double
+  
+  var coordinate: CLLocationCoordinate2D {
+    CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+  }
+}
 
 struct Dog: Codable, Identifiable {
     var id = UUID()
@@ -351,6 +408,78 @@ struct AddPetView: View {
 }
 
 struct DogView: View {
+    var dog: Pet
+    
+    var body: some View {
+        ScrollView() {
+            VStack() {
+                VStack(alignment: .center) {
+                    Image("doggy")
+                        .resizable()
+                        .renderingMode(.original)
+                    .scaledToFill()
+                        .frame(maxWidth: .infinity)
+                        .frame(maxHeight: 200)
+//                        .frame(width: .infinity, height: 200)
+                        .cornerRadius(4)
+                        .padding(0)
+                }.padding(.top, 50)
+                VStack(alignment: .leading) {
+                    Text("Name").font(.system(size: 12, weight: .regular, design: .rounded))
+                    Text(dog.name).padding(.top, 8)
+                    Divider().background(Color("DarkGray")).padding(.top, 14)
+                }.padding(.bottom, 18)
+                VStack(alignment: .leading) {
+                    Text("Status").font(.system(size: 12, weight: .regular, design: .rounded))
+                    Text(dog.status).padding(.top, 8)
+                    Divider().background(Color("DarkGray")).padding(.top, 14)
+                }.padding(.bottom, 18)
+                VStack(alignment: .leading) {
+                    Text("Type").font(.system(size: 12, weight: .regular, design: .rounded))
+                    Text(dog.type).padding(.top, 8)
+                    Divider().background(Color("DarkGray")).padding(.top, 14)
+                }.padding(.bottom, 18)
+                VStack(alignment: .leading) {
+                    Text("Breed").font(.system(size: 12, weight: .regular, design: .rounded))
+                    Text(dog.breed).padding(.top, 8)
+                    Divider().background(Color("DarkGray")).padding(.top, 14)
+                }.padding(.bottom, 18)
+                VStack(alignment: .leading) {
+                    Text("Size").font(.system(size: 12, weight: .regular, design: .rounded))
+                    Text(dog.size).padding(.top, 8)
+                    Divider().background(Color("DarkGray")).padding(.top, 14)
+                }.padding(.bottom, 18)
+                VStack(alignment: .leading) {
+                    Text("Gender").font(.system(size: 12, weight: .regular, design: .rounded))
+                    Text("Male").padding(.top, 8)
+                    Divider().background(Color("DarkGray")).padding(.top, 14)
+                }.padding(.bottom, 18)
+                VStack(alignment: .leading) {
+                    Text("Primary Colour").font(.system(size: 12, weight: .regular, design: .rounded))
+                    Text("Test").padding(.top, 8)
+                    Divider().background(Color("DarkGray")).padding(.top, 14)
+                }.padding(.bottom, 18)
+                VStack(alignment: .leading) {
+                    Text("Birthday").font(.system(size: 12, weight: .regular, design: .rounded))
+                    Text(dog.birthday).padding(.top, 8)
+                    Divider().background(Color("DarkGray")).padding(.top, 14)
+                }.padding(.bottom, 18)
+//                Spacer()
+            }.padding(22)
+                .navigationBarTitle(Text("Pet Registration"), displayMode: .inline)
+                .navigationBarItems(trailing:
+                    NavigationLink(destination: EmergencyContactView()) {
+                        Text("Edit")
+                    })
+
+        }
+    }
+}
+
+
+struct LostDogView: View {
+    @Binding var dog: Posting
+    
     var body: some View {
         ScrollView() {
             VStack() {
@@ -413,6 +542,13 @@ struct DogView: View {
                         Text("Edit")
                     })
 
+//            var color: [String]
+//              var status: String
+//              var type: String
+//              var size: String
+//              var lat: Float
+//              var lng: Float
+            
         }
     }
 }

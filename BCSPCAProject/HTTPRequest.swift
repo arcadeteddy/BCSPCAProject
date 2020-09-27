@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 class HTTPRequest {
     public static var shared = HTTPRequest()
     
@@ -175,7 +174,6 @@ struct Pet: Codable {
     var breed: String
     var size: String
     var birthday: String
-    
 }
 
 
@@ -184,7 +182,7 @@ struct Postings: Codable {
 }
 
 
-struct Posting: Codable{
+struct Posting: Codable {
     var color: [String]
     var status: String
     var type: String
