@@ -10,32 +10,29 @@ import SwiftUI
 
 struct RegisterView: View {
     var body: some View {
-        NavigationView {
-            VStack(spacing: 15) {
-                Image("logo").resizable()
-                    .padding(.bottom, 50)
-                    .frame(width: 280.0, height: 110)
+        VStack(spacing: 15) {
+            Image("logo").resizable()
+                .padding(.bottom, 50)
+                .frame(width: 280.0, height: 110)
 
-                NavigationLink(destination: VerifySPCAView()) {
-                    Text("Verify with SPCA")
-                    .font(.system(size: 16, weight: .regular, design: .rounded))
-                    .foregroundColor(Color.white)
-                    .frame(width: 260, height: 40)
-                    .background(Color.blue)
-                    .cornerRadius(4)
-                }
+            NavigationLink(destination: VerifySPCAView()) {
+                Text("Verify with SPCA")
+                .font(.system(size: 16, weight: .regular, design: .rounded))
+                .foregroundColor(Color.white)
+                .frame(width: 260, height: 40)
+                .background(Color.blue)
+                .cornerRadius(4)
+            }
 
-                NavigationLink(destination: RegistrationView()) {
-                    Text("Not Registered with SPCA")
-                    .font(.system(size: 16, weight: .regular, design: .rounded))
-                    .foregroundColor(Color.blue)
-                    .frame(width: 260, height: 40)
-                    .overlay(RoundedRectangle(cornerRadius: 4)
-                    .stroke(Color.blue, lineWidth: 1))
-                }
+            NavigationLink(destination: RegistrationView()) {
+                Text("Not Registered with SPCA")
+                .font(.system(size: 16, weight: .regular, design: .rounded))
+                .foregroundColor(Color.blue)
+                .frame(width: 260, height: 40)
+                .overlay(RoundedRectangle(cornerRadius: 4)
+                .stroke(Color.blue, lineWidth: 1))
             }
         }
-        .padding(0.0)
     }
 
 }
@@ -193,6 +190,9 @@ struct PetRegistrationView: View {
     @State var pet_colour = ""
     @State var pet_birthday = ""
     
+    @State private var isPresented = false
+
+    
     var body: some View {
         ScrollView() {
                 
@@ -242,7 +242,7 @@ struct PetRegistrationView: View {
             }.padding(22)
                 .navigationBarTitle(Text("Pet Registration"), displayMode: .inline)
                 .navigationBarItems(trailing:
-                    NavigationLink(destination: EmergencyContactView()) {
+                    NavigationLink(destination: Tabs()) {
                         Text("Finish")
                     })
         }

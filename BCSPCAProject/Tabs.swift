@@ -27,7 +27,8 @@ struct Tabs: View {
                     Image(systemName: "camera.fill")
                     Text("Report")
             }
-        }
+        }.navigationBarHidden(true)
+
     }
 }
 
@@ -169,13 +170,14 @@ struct MapView: UIViewRepresentable {
 
 struct MainView: View {
     @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
-    
+    @ObservedObject var fetch = FetchPostings()
     @State var location:String = ""
     
     var body: some View {
         NavigationView{
             ScrollView {
                 VStack(){
+                    Print(fetch.postings.posts)
                     VStack(alignment: .leading) {
                         Text("Location").font(.system(size: 12, weight: .regular, design: .rounded))
                         TextField("Location", text: $location )
@@ -245,17 +247,18 @@ struct MainView: View {
     
     
     private func fetchPostings() {
-        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "get_owner"), object: nil, queue: nil, using: self.onGetOwner(notification:))
-        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "get_all_postings"), object: nil, queue: nil, using: self.onGetAllPostings(notification:))
-        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "get_owner_pet"), object: nil, queue: nil, using: self.onGetOwnerPet  (notification:))
+//        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "get_owner"), object: nil, queue: nil, using: self.onGetOwner(notification:))
+//        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "get_all_postings"), object: nil, queue: nil, using: self.onGetAllPostings(notification:))
+//        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "get_owner_pet"), object: nil, queue: nil, using: self.onGetOwnerPet  (notification:))
 //        HTTPRequest.shared.getAllPostings()
-        HTTPRequest.shared.getOwner()
+//        HTTPRequest.shared.getOwner()
 //        HTTPRequest.shared.getOwnerPet()
     }
     
     
     func onGetOwner(notification:Notification) {
         if let userinfo = notification.userInfo, let data = userinfo["json"] as? Owner {
+            print(data.data)
             print(data.data.firstName)
         }
         
@@ -264,6 +267,7 @@ struct MainView: View {
     func onGetAllPostings(notification:Notification) {
         if let userinfo = notification.userInfo, let data = userinfo["json"] as? Postings {
             print(data)
+            print(data.posts)
         }
         
     }
@@ -410,5 +414,13 @@ struct DogView: View {
                     })
 
         }
+    }
+}
+
+
+extension View {
+    func Print(_ vars: Any...) -> some View {
+        for v in vars { print(v) }
+        return EmptyView()
     }
 }

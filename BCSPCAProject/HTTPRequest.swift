@@ -15,6 +15,8 @@ class HTTPRequest {
     private let getAllPostingsRoute = URL(string: "http://69.172.162.104:3000/posting")
     private let getOwnerRoute = URL(string: "http://69.172.162.104:3000/owner/BobLee")
     private let getOwnerPetsRoute = URL(string: "http://69.172.162.104:3000/owner/BobLee/pet")
+
+    
     
     
     func getAllPostings() {
@@ -69,6 +71,70 @@ class HTTPRequest {
     }
 }
 
+class FetchPostings: ObservableObject {
+    @Published var postings = Postings(posts: [])
+    
+    private let getAllPostingsRoute = URL(string: "http://69.172.162.104:3000/posting")
+    init() {
+        var req = URLRequest(url: getAllPostingsRoute!)
+        req.httpMethod = "GET"
+        URLSession.shared.dataTask(with: req) { data, response, error in
+            if let data = data {
+                let jsonDecoder = JSONDecoder()
+                do {
+                    let parsedJSON = try jsonDecoder.decode(Postings.self, from: data)
+                    self.postings = parsedJSON
+                } catch {
+                    print(error)
+                }
+            }
+        }.resume()
+    }
+}
+
+
+class FetchOwner: ObservableObject {
+    @Published var owner = Owner(data: OwnerData(firstName: "", lastName: "", email: "", password: "", phone: 0, address1: "", address2: "", city: "", province: "", e_firstName: "", e_lastName: "", e_relationship: "", e_phone: 0, ids: "", pets: []))
+    
+    private let getOwnerRoute = URL(string: "http://69.172.162.104:3000/owner/BobLee")
+    init() {
+        var req = URLRequest(url: getOwnerRoute!)
+        req.httpMethod = "GET"
+        URLSession.shared.dataTask(with: req) { data, response, error in
+            if let data = data {
+                let jsonDecoder = JSONDecoder()
+                do {
+                    let parsedJSON = try jsonDecoder.decode(Owner.self, from: data)
+                    self.owner = parsedJSON
+                } catch {
+                    print(error)
+                }
+            }
+        }.resume()
+    }
+}
+
+class FetchOwnerPets: ObservableObject {
+    @Published var pet = Pets(data: [])
+    
+    private let getOwnerPetsRoute = URL(string: "http://69.172.162.104:3000/owner/BobLee/pet")
+    init() {
+        var req = URLRequest(url: getOwnerPetsRoute!)
+        req.httpMethod = "GET"
+        URLSession.shared.dataTask(with: req) { data, response, error in
+            if let data = data {
+                let jsonDecoder = JSONDecoder()
+                do {
+                    let parsedJSON = try jsonDecoder.decode(Pets.self, from: data)
+                    self.pet = parsedJSON
+                } catch {
+                    print(error)
+                }
+            }
+        }.resume()
+    }
+}
+
 struct Pets: Codable {
     var data: [Pet]
 }
@@ -112,7 +178,7 @@ struct Postings: Codable {
 }
 
 
-struct Posting: Codable {
+struct Posting: Codable{
     var color: [String]
     var status: String
     var type: String
