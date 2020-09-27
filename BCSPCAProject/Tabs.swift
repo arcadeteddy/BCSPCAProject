@@ -7,19 +7,20 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct Tabs: View {
     var body: some View {
         TabView {
+            MainView()
+                .tabItem {
+                    Image(systemName: "house.fill")
+                    Text("Search")
+            }
             ProfileView(rValue: 0.5, gValue: 0.5, bValue: 0.5)
                 .tabItem {
                     Image(systemName: "person.fill")
                     Text("Profile")
-            }
-            MainView()
-                .tabItem {
-                    Image(systemName: "house.fill")
-                    Text("Home")
             }
             ReportView()
                 .tabItem {
@@ -151,6 +152,97 @@ struct ProfileView: View {
     }
 }
 
+struct MapView: UIViewRepresentable {
+    func makeUIView(context: Context) -> MKMapView {
+        MKMapView(frame: .zero)
+    }
+
+    func updateUIView(_ uiView: MKMapView, context: Context) {
+        let coordinate = CLLocationCoordinate2D(
+            latitude: 34.011286, longitude: -116.166868)
+        let span = MKCoordinateSpan(latitudeDelta: 2.0, longitudeDelta: 2.0)
+        let region = MKCoordinateRegion(center: coordinate, span: span)
+        uiView.setRegion(region, animated: true)
+    }
+}
+
+struct MainView: View {
+    @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+    
+    @State var location:String = ""
+    
+    var body: some View {
+        NavigationView{
+            ScrollView {
+                VStack(){
+                    VStack(alignment: .leading) {
+                        Text("Location").font(.system(size: 12, weight: .regular, design: .rounded))
+                        TextField("Location", text: $location )
+                    }.padding(.bottom, 18)
+                    
+                    MapView()
+                        .padding(.horizontal, -20.0)
+                        .padding(.bottom, 20)
+                        .frame(height: 300)
+                    
+                    HStack(spacing: 25.0) {
+                        VStack {
+                            Image("dog-1")
+                                .resizable()
+                                .frame(width: 60, height: 60)
+                                .cornerRadius(4)
+                                .padding(0)
+                            Text("0")
+                                .font(.system(size: 15))
+                            Text("Dogs")
+                                .font(.system(size: 15))
+                        }
+                        VStack {
+                            Image("cat")
+                                .resizable()
+                                .frame(width: 60, height: 60)
+                                .cornerRadius(4)
+                                .padding(0)
+                            Text("0")
+                                .font(.system(size: 15))
+                            Text("Cats")
+                                .font(.system(size: 15))
+                        }
+                        VStack {
+                            Image("hamster")
+                                .resizable()
+                                .frame(width: 60, height: 60)
+                                .cornerRadius(4)
+                                .padding(0)
+                            Text("0")
+                                .font(.system(size: 15))
+                            Text("Hamsters")
+                                .font(.system(size: 15))
+                        }
+                        VStack {
+                            Image("parrot")
+                                .resizable()
+                                .frame(width: 60, height: 60)
+                                .cornerRadius(4)
+                                .padding(0)
+                            Text("0")
+                                .font(.system(size: 15))
+                            Text("Birds")
+                                .font(.system(size: 15))
+                        }
+                    }
+                    
+                    NavigationLink(destination: DogView()) {
+                        DogItem().padding(.top)
+                    }
+                }
+                .padding()
+                Spacer()
+            }
+        }
+    }
+}
+
 struct DogItem: View {
     var body: some View {
         ZStack {
@@ -190,12 +282,6 @@ struct DogItem: View {
             .padding(.all, 10.0)
             .frame(width: 340, height: 100)
         }
-    }
-}
-
-struct MainView: View {
-    var body: some View {
-        Color.blue
     }
 }
 
