@@ -12,22 +12,25 @@ import MapKit
 struct Tabs: View {
     var body: some View {
         TabView {
-            ProfileView()
-                .tabItem {
-                    Image(systemName: "person.fill")
-                    Text("Profile")
-            }
-            MainView()
-                .tabItem {
-                    Image(systemName: "house.fill")
-                    Text("Search")
+            NavigationView {
+                MainView()
+                    .tabItem {
+                        Image(systemName: "house.fill")
+                        Text("Search")
+                }
+            .edgesIgnoringSafeArea([])
+            .navigationBarHidden(false)
+                .navigationBarTitle("Reports", displayMode: .inline)
             }
             ReportView()
                 .tabItem {
                     Image(systemName: "camera.fill")
                     Text("Report")
             }
-        }.navigationBarHidden(true)
+        }
+    .navigationBarBackButtonHidden(true)
+    .edgesIgnoringSafeArea([.top, .bottom])
+    .navigationBarHidden(true)
 
     }
 }
@@ -70,10 +73,12 @@ struct ProfileImage: View {
 }
 
 struct ProfileView: View {
+    @State var rValue: Double
+    @State var gValue: Double
+    @State var bValue: Double
+    @State var isPresented = false
     @ObservedObject var fetch = FetchOwnerPets()
-    
     var body: some View {
-        NavigationView{
             ScrollView {
                 VStack {
                     HStack {
@@ -115,7 +120,6 @@ struct ProfileView: View {
                         }.accentColor(Color.clear)
                     }
                 }
-            }
 
         }
     }

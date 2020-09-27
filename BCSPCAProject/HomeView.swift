@@ -9,11 +9,8 @@
 import SwiftUI
 
 struct HomeView: View {
-    @ObservedObject var fetch = FetchOwnerPets()
-    
     var body: some View {
         NavigationView {
-            Print(fetch.pet)
             VStack(spacing: 15) {
                 Image("logo").resizable()
                     .padding(.bottom, 50)
@@ -48,39 +45,44 @@ struct HomeView: View {
 }
 
 struct LoginView: View {
-    @State private var email = ""
-    @State private var password = ""
+    @State private var email = "boblee@gmail.com"
+    @State private var password = "*********"
 
     var body: some View {
           VStack() {
-            TextField("Email", text: self.$email)
-                .font(.system(size: 16, weight: .semibold, design: .rounded))
-                .padding(.leading, 10.0)
-                .foregroundColor(Color.white)
+            Image("logo").resizable()
+            .padding(.bottom, 50)
+            .frame(width: 280.0, height: 110)
+            VStack(alignment:.leading) {
+                Text("Email").font(.system(size: 12, weight: .regular, design: .rounded))
+                VStack() {
+                    TextField("Email", text: $email).padding(.horizontal, 10)
+                    .font(.system(size: 16, weight: .regular, design: .rounded))
+                }
                 .frame(width: 260, height: 40)
-                .background(Color.white)
-                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                .shadow(color: Color(#colorLiteral(red: 0.7608050108, green: 0.8164883852, blue: 0.9259157777, alpha: 1)), radius: 20, x: 20, y: 20)
-                .shadow(color: Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)), radius: 20, x: -20, y: -20)
-            TextField("Password", text: self.$password)
-                .font(.system(size: 16, weight: .semibold, design: .rounded))
-                .padding(.leading, 10.0)
-                .foregroundColor(Color.white)
+                .overlay(RoundedRectangle(cornerRadius: 4)
+                .stroke(Color.blue, lineWidth: 1))
+            }
+            
+            VStack(alignment:.leading) {
+                Text("Password").font(.system(size: 12, weight: .regular, design: .rounded))
+                VStack() {
+                    TextField("********", text: $password).padding(.horizontal, 10)
+                    .font(.system(size: 16, weight: .regular, design: .rounded))
+                }
                 .frame(width: 260, height: 40)
-                .background(Color.white)
-
-                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                .shadow(color: Color(#colorLiteral(red: 0.7608050108, green: 0.8164883852, blue: 0.9259157777, alpha: 1)), radius: 20, x: 20, y: 20)
-                .shadow(color: Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)), radius: 20, x: -20, y: -20)
-            Button("Login") {}
-                .font(.system(size: 16, weight: .semibold, design: .rounded))
+                .overlay(RoundedRectangle(cornerRadius: 4)
+                .stroke(Color.blue, lineWidth: 1))
+            }.padding(.bottom, 40)
+            NavigationLink(destination: Tabs()) {
+                Text("Login")
+                .font(.system(size: 16, weight: .regular, design: .rounded))
                 .foregroundColor(Color.white)
                 .frame(width: 260, height: 40)
                 .background(Color.blue)
-
-                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                .shadow(color: Color(#colorLiteral(red: 0.7608050108, green: 0.8164883852, blue: 0.9259157777, alpha: 1)), radius: 20, x: 20, y: 20)
-                .shadow(color: Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)), radius: 20, x: -20, y: -20)
+                .cornerRadius(4)
+            }
+            Spacer()
         }
     }
 }
@@ -147,7 +149,7 @@ struct ReportView: View {
                     .navigationBarTitle(Text("Report Found Pet"), displayMode: .inline)
                     .navigationBarItems(trailing:
                         NavigationLink(destination: Tabs()) {
-                            Text("Finish")
+                            Text("Post")
                         })
             }
         }
